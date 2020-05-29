@@ -1,13 +1,33 @@
 <%- include('partials/header') -%>
 
-  <%-include('partials/navbar')-%>
   <body>
-    <form action="/users/signup" method="POST">
-      <input type="text" name="name" placeholder="Name" />
-      <input type="email" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
-      <input type="submit" value="Sign Up" />
-    </form>
+   
+    <div class="container">
+      <div class="form_wrapper">
+        <h2 class="form-heading">
+          Create Account
+        </h2>
+        <form action="/users/signup" method="POST" class="form">
+          <label>Your name</label>
+          <input type="text" name="name" placeholder="Name" class="form-name"/>
+          <label>Email*</label>
+          <input type="email" name="email" placeholder="Email" class="form-email" />
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Password" class="form-password"/>
+          <label class="form-para">
+            *We will send you a email to verify your email id.
+            Message and Data rates may apply.
+          </label>
+        
+          <input type="submit" value="Sign Up" class="form-btn"/>
+        </form>
+        
+        <p class="form-para">
+          Already have an account? <a href="/users/login">Sign in</a>
+        </p>
+
+      </div>
+    </div>
   </body>
   
 <%- include('partials/footer') -%>

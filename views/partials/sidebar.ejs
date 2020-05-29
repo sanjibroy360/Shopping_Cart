@@ -1,0 +1,45 @@
+
+  <ul class="sidebar-list">
+    <li class="sidebar_heading">
+      <p class="user_icon">
+        <i class="fas fa-user-tie"></i>
+      </p>
+      <p class="sidebar_username">
+        <% if(user) {%>
+          Hello, <%= user.name %>
+        <%} else {%>
+          <a href="/users/login">Sign in</a>
+        <%}%>
+      </p>
+    </li>
+
+    <li class="sidebar_items category_heading">
+      SHOP BY CATEGORY
+    </li>
+    <li class="sidebar_items">
+      Books
+    </li>
+    <li class="sidebar_items">
+      Mobiles
+    </li>
+
+    <li class="sidebar_items">
+      Computers
+    </li>
+
+    <li class="sidebar_items">
+      TV, Appliannces, Electronics
+    </li>
+
+    <li class="sidebar_items">
+      Your Account
+    </li>
+
+    <li class="sidebar_items">
+      Sign Out
+    </li>
+  </ul>
+
+  <button class="cross-btn">
+    <i class="fas fa-times cross_icon"></i>
+  </button>

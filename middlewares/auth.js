@@ -16,7 +16,11 @@ exports.getCurrentUserInfo = async function (req, res, next) {
     var user = await User.findById(id);
     if (user) {
       req.user = user.id;
-      res.locals.user = user.id;
+      var obj = {
+        id: user.id,
+        name: user.name
+      }
+      res.locals.user = obj;
     }
     next();
   } catch (error) {

@@ -1,15 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<%- include('partials/header') -%>
+
 <body>
-    <form action="/users/login" method="POST">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Log in">
-    </form>
+  <div class="container">
+    <div class="form_wrapper">
+      <h2 class="form-heading">
+        Sign in
+      </h2>
+      <form action="/users/login" method="POST" class="form">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          class="form-email"
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          class="form-password"
+        />
+        <input type="submit" value="Sign in" class="form-btn" />
+      </form>
+
+      <p class="form-para google-login">
+        <a href="/auth/google">
+          <i class="fab fa-google"></i>
+          Sign in with Google
+        </a>
+      </p>
+      <p class="form-para">
+        New to Shopping Cart? <a href="/users/signup">Create Account</a>
+      </p>
+    </div>
+  </div>
 </body>
-</html>
+
+<%- include('partials/footer') -%>

@@ -1,46 +1,65 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"
-          >Home <span class="sr-only">(current)</span></a
-        >
+<header class="header">
+  <nav class="navbar nav-flex container">
+    <div class="sidebar_wrapper">
+      <%-include('sidebar')-%>
+    </div>
+    
+
+    <div class="sidebar-toggle">
+      <button class="sidebar-btn">
+        <i class="fas fa-bars bars-icon"></i>
+      </button>
+    </div>
+
+    <p class="brand-name">
+      Shopping Cart
+    </p>
+
+    <ul class="nav-list">
+      <li class="nav-list-item">
+        <form action="#" method="POST" class="search-wrapper">
+          <input type="text" class="searchbox" />
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+
+      <li class="nav-list-item dropdown">
+       
+          <div class="dropdown_parent">
+            <% if(user) {%>
+              <p class="small"> Hello, <%= user.name %></p>
+            <%} else {%>
+              <p class="small"> Hello, <a href="/users/login">Sign in</a></p>
+            <%}%>
+            <p class="nav-item-info">
+              Account & Lists <i class="fas fa-caret-down"></i>
+            </p>
+          </div>
+       
+
+        <ul class="dropdown-list">
+          <li class="dropdown_heading">Your Account</li>
+          <% if(user) {%>
+
+            <li>Your Account</li>
+            <li>Your Wishlist</li>
+            <li>Your Orders</li>
+            <li>Log Out</li>
+
+          <%} else {%>
+            <button> Sign in</button>
+          <%}%>
+          
+          
+        </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+
+      <li class="nav-list-item cart-flex">
+        <p class="cart_icon"><i class="fas fa-shopping-cart"></i></p>
+        <p class="small">Cart</p>
       </li>
     </ul>
-  </div>
-</nav>
+  </nav>
+</header>

@@ -319,10 +319,6 @@ a {
   padding: 0.5rem;
   resize: none;
   outline: 0;
-  /* border-radius: 0.5rem; */
-  /* border: none; */
-  /* box-shadow:  0px 1.5px 5px 3px rgba(243, 243, 243,0.4),
-              0px -1.5px 5px 3px rgba(56, 56, 56, 0.3); */
 }
 
 .product-category {
@@ -334,8 +330,7 @@ a {
   font-weight: 550;
   margin: 1rem auto;
   color: rgb(10, 10, 10);
-  /* text-shadow: inset 0px 1.5px 5px rgba(243, 243, 243,0.4),
-               0px -1.5px 5px rgba(56, 56, 56, 0.3);; */
+  
 }
 
 .product-submit-btn {
@@ -349,4 +344,6 @@ a {
 .product-submit-btn:hover {
   background:rgb(44, 135, 255);
 }
+
+/* Individual Product Page */
 

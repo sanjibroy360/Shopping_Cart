@@ -41,7 +41,7 @@ exports.checkAdmin = async function (req, res, next) {
 
 exports.getCurrentUserInfo = async function (req, res, next) {
   try {
-    if ((req.session.userId && req.session) || req.session.passport) {
+    if (req.session.userId  || req.session.passport) {
       var id = req.session.userId || req.session.passport.user;
 
       var user = await User.findById(id);
@@ -53,9 +53,10 @@ exports.getCurrentUserInfo = async function (req, res, next) {
           name: user.name,
           isAdmin: user.isAdmin,
         };
-        console.log("LOCAL ", res.locals);
+        console.log("LOCAL: ", res.locals);
+        console.log("Local Session: ",req.session);
       }
-    }
+    } 
     next();
   } catch (error) {
     next(error);

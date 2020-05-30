@@ -41,11 +41,8 @@ exports.userLogin = async function (req, res, next) {
         console.log("Session: ", req.session);
         console.log("Req. User: ", req.user);
         console.log("Res. User: ", res.locals.user);
-
-        res.json({
-          success: true,
-          msg: "User Logged in successfully",
-        });
+        req.session.userId = user.id;
+        res.redirect("/");
       } else {
         res.json({
           success: false,

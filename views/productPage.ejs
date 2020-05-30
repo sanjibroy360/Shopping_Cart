@@ -1,0 +1,24 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<section class="product-section">
+    <div class="container product-flex">
+        <div class="image-wrapper">
+            <img src="/images/uploads/<%=product.image%>" class="product-image">
+        </div>
+        
+        <div class="product-desc-wrapper">
+            <h1 class="product-title"><%=product.name%></h1>
+            <p class="product-category">
+                <%= product.category %>
+            </p>
+            <p class="product-desc">
+                <%=product.description%>
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<%-include('partials/footer')-%>

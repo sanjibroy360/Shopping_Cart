@@ -53,8 +53,9 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use("/admin",auth.checkAdmin);
+
 app.use(auth.getCurrentUserInfo);
+app.use("/admin",auth.checkAdmin);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);

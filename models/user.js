@@ -31,6 +31,11 @@ var userSchema = new Schema({
         default: false
     },
 
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+
     favorited : [{
         type: Schema.Types.ObjectId,
         ref: "Product",
@@ -53,6 +58,15 @@ userSchema.pre("save", async function(next) {
         })   
     }
 });
+
+userSchema.methods.encryptPassword = async function(password) {
+    try {
+        password = await hash(password, 10);
+        return password;
+    } catch (error) {
+        return(null);
+    }
+}
 
 userSchema.methods.checkPassword = async function(password) {
     return await compare(password, this.password);

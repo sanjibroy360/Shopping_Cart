@@ -1,0 +1,36 @@
+<%- include('partials/header') -%>
+
+<body>
+  <div class="container">
+    <div class="form_wrapper">
+      <h2 class="form-heading">
+        Verify Email
+      </h2>
+      
+      <form action="/users/verify-email" method="POST" class="form">
+        
+        <% if(passport) { %>
+            <label>Password</label>
+            <input type="password" name="password" class="form-password" />
+
+            <label>Confirm Password</label>
+            <input type="text" name="confirmPassword" class="form-password" />
+        <%}%>
+        <label>Enter OTP</label>
+        
+        <input type="text" name="otp" class="form-password" />
+        <label class="form-para">
+            *An OTP has been sent to your registered email.
+        </label>
+        <input type="submit" value="Sign in" class="form-btn" />
+      </form>
+
+      
+      <p class="form-para">
+        <a href="/users/signup">Back</a>
+      </p>
+    </div>
+  </div>
+</body>
+
+<%- include('partials/footer') -%>

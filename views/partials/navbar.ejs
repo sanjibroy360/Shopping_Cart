@@ -40,16 +40,21 @@
        
 
         <ul class="dropdown-list">
-          <li class="dropdown_heading">Your Account</li>
+          
           <% if(user) {%>
-
+            <li class="dropdown_heading">Your Account</li>
             <li>Your Account</li>
             <li>Your Wishlist</li>
             <li>Your Orders</li>
-            <li>Log Out</li>
+            <li>
+              <a href="/users/logout"> Log Out</a>
+            </li>
 
           <%} else {%>
             <button> Sign in</button>
+            <p class="small-para">
+              New Customer? <a href="/users/signup">Start Here</a>
+            </p>
           <%}%>
           
           

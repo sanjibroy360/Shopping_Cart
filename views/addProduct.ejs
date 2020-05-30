@@ -1,0 +1,33 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<div class="container">
+    <form action="/admin/add-product" method="POST" class="product-form" enctype="multipart/form-data">
+        <label class="product-form-label">Product Name</label>
+        <input type="text" name="name" class="product-input"> 
+        
+        <label class="product-form-label">Description</label>
+        <textarea name="description" rows="10" class="product-input"></textarea>
+    
+        <label class="product-form-label">Select Category</label>
+        <select name="category" class="product-category">
+            <option value="">Select</option>
+            <option value="mobile">Mobile</option>
+            <option value="book">Book</option>
+            <option value="computer">Computer</option>
+            <option value="electronics">Electronics</option>
+        </select>
+    
+        <label class="product-form-label">Product's Image</label>
+        <input type="file" name="image" class="product-image">
+    
+        <label class="product-form-label">Quantity</label>
+        <input type="text" name="quantity" class="product-input">
+        
+        <input type="submit" class="product-submit-btn form-btn">
+    </form>
+    
+</div>
+
+<%-include('partials/footer')-%>

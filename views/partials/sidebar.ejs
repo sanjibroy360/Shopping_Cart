@@ -12,7 +12,15 @@
         <%}%>
       </p>
     </li>
+    <li class="sidebar_items category_heading">
+      ADMIN SECTION
+    </li>
 
+    <% if(user.isAdmin) {%>
+      <li class="sidebar_items">
+        <a href="/admin/add-product">Add Product</a>
+      </li>
+    <%}%>
     <li class="sidebar_items category_heading">
       SHOP BY CATEGORY
     </li>
@@ -36,7 +44,7 @@
     </li>
 
     <li class="sidebar_items">
-      Sign Out
+      <a href="/users/logout"> Sign Out</a>
     </li>
   </ul>
 

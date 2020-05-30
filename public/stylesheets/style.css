@@ -195,6 +195,7 @@ a {
   z-index: 55;
   margin-left: -40rem;
   transition: 0.5s ease;
+  background-color: #fff;
 }
 
 .sidebar_items {
@@ -245,7 +246,7 @@ a {
 
 .form_wrapper {
   position: absolute;
-  top: 15%;
+  top: 8%;
   left: 50%;
   transform: translateX(-50%);
   width: 21.875rem;
@@ -279,12 +280,13 @@ a {
   margin: 40rem 0rem 2rem 0rem;
 }
 
+
 .form-btn:hover {
   background:rgb(44, 135, 255);
 }
 
 .form-para {
-  margin: 1rem 0rem;
+  margin: 1rem 0rem 0.3rem 0rem;
   font-size: 0.9rem;
   color: rgb(95, 95, 95);
 }
@@ -299,3 +301,52 @@ a {
   margin-bottom: 2rem;
   color: rgb(95, 95, 95);
 }
+
+.small-para {
+  font-size: 0.7rem;
+}
+
+/* Add Product Form */
+
+.product-input, .product-form-label, .product-image, .product-category {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.product-input {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  resize: none;
+  outline: 0;
+  /* border-radius: 0.5rem; */
+  /* border: none; */
+  /* box-shadow:  0px 1.5px 5px 3px rgba(243, 243, 243,0.4),
+              0px -1.5px 5px 3px rgba(56, 56, 56, 0.3); */
+}
+
+.product-category {
+  padding: 0.5rem;
+}
+
+.product-form-label {
+  font-size: 1.2rem;
+  font-weight: 550;
+  margin: 1rem auto;
+  color: rgb(10, 10, 10);
+  /* text-shadow: inset 0px 1.5px 5px rgba(243, 243, 243,0.4),
+               0px -1.5px 5px rgba(56, 56, 56, 0.3);; */
+}
+
+.product-submit-btn {
+  display: block;
+  width: 50%;
+  padding: 0.5rem;
+  margin: 2rem auto;
+  background:rgb(90, 155, 241);
+}
+
+.product-submit-btn:hover {
+  background:rgb(44, 135, 255);
+}
+

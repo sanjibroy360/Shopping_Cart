@@ -1,26 +1,60 @@
 var User = require("../models/user");
-var passport = require('passport');
+var passport = require("passport");
 
-exports.checkLogin = function (req, res, next) {
-  if (require.session.userId || req.session.passport.user.userId) {
-    console.log("User Logged in");
-    next();
-  } else {
-    res.redirect("login");
+exports.checkLogin = async function (req, res, next) {
+  try {
+    if (req.session.userId || req.session.passport.user) {
+      var user = await User.findById(req.user);
+      if (user.isVerified) {
+        next();
+      } else {
+        res.redirect("/users/get-verfication-code");
+      }
+    } else {
+      res.redirect("/users/login");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.checkAdmin = async function (req, res, next) {
+  try {
+    if (req.session.userId || req.session.passport.user) {
+      var user = await User.findById(req.user);
+      if (user.isVerified) {
+        if(user.isAdmin) {
+          next();
+        } else {
+          res.redirect("/");
+        }
+      } else {
+        res.redirect("/users/get-verfication-code");
+      }
+    } else {
+      res.redirect("/users/login");
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
 exports.getCurrentUserInfo = async function (req, res, next) {
   try {
-    var id = req.session.userId;
-    var user = await User.findById(id);
-    if (user) {
-      req.user = user.id;
-      var obj = {
-        id: user.id,
-        name: user.name
+    if ((req.session.userId && req.session) || req.session.passport) {
+      var id = req.session.userId || req.session.passport.user;
+
+      var user = await User.findById(id);
+      console.log("USER: ", user);
+      if (user) {
+        req.user = user.id;
+        res.locals.user = {
+          id: user.id,
+          name: user.name,
+          isAdmin: user.isAdmin,
+        };
+        console.log("LOCAL ", res.locals);
       }
-      res.locals.user = obj;
     }
     next();
   } catch (error) {

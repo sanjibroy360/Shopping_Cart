@@ -14,6 +14,7 @@ const MongoStore = require("connect-mongo")(session);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var adminRouter = require("./routes/admin");
 
 // Middlewares
 var auth = require('./middlewares/auth');
@@ -22,7 +23,7 @@ var auth = require('./middlewares/auth');
 
 mongoose.connect(
   "mongodb://localhost:27017/shopping_cart",
-  { useUnifiedTopology: true, useNewUrlParser: true },
+  { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
   (error) => {
     console.log("Connected: ", error ? error : true);
   }
@@ -52,9 +53,11 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use("/admin",auth.checkAdmin);
 app.use(auth.getCurrentUserInfo);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -14,7 +14,7 @@ passport.use(
         var update = {
           name: profile.displayName,
           email: profile._json.email,
-          isAdmin: profile._json.email == process.env.admin,
+          isAdmin: profile._json.email == process.env.ADMIN,
         };
         var user = await User.findOneAndUpdate(
           { email: profile._json.email },
@@ -22,7 +22,7 @@ passport.use(
           { new: true, upsert: true }
         );
 
-        done(null, profile);
+        done(null, user);
       } catch (error) {
         done(null, false);
       }
@@ -30,8 +30,7 @@ passport.use(
   )
 );
 passport.serializeUser((user, done) => {
-  console.log(user);
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {

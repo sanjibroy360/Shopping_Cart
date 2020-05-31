@@ -5,10 +5,14 @@ exports.checkLogin = async function (req, res, next) {
   try {
     if (req.session.userId || req.session.passport.user) {
       var user = await User.findById(req.user);
-      if (user.isVerified) {
-        next();
+      if(user) {
+        if (user.isVerified) {
+          next();
+        } else {
+          res.redirect("/users/get-verfication-code");
+        }
       } else {
-        res.redirect("/users/get-verfication-code");
+        res.redirect("/users/signup");
       }
     } else {
       res.redirect("/users/login");
@@ -55,7 +59,7 @@ exports.getCurrentUserInfo = async function (req, res, next) {
         };
         console.log("LOCAL: ", res.locals);
         console.log("Local Session: ",req.session);
-      }
+      } 
     } 
     next();
   } catch (error) {

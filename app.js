@@ -15,6 +15,8 @@ const MongoStore = require("connect-mongo")(session);
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
+var productRouter = require('./routes/products');
+var cartRouter = require('./routes/carts')
 
 // Middlewares
 var auth = require('./middlewares/auth');
@@ -56,9 +58,12 @@ app.use(passport.session())
 
 app.use(auth.getCurrentUserInfo);
 app.use("/admin",auth.checkAdmin);
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
+app.use("/product",productRouter);
+app.use("/user/cart",cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

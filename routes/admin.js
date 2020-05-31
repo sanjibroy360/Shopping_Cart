@@ -33,6 +33,7 @@ router.post("/add-product", upload.single("image"), async function (
 ) {
   try {
     req.body.image = req.file.filename;
+    req.body.category = req.body.category.toLowerCase()
     var product = await Product.findOne({name: req.body.name});
     console.log("Req : ", req.body);
     console.log("Product", Product);
@@ -42,19 +43,39 @@ router.post("/add-product", upload.single("image"), async function (
         req.body.quantity = Number(product.quantity) + Number(req.body.quantity);
         product = await Product.findByIdAndUpdate(product.id, req.body);
     }
-    res.redirect(`/admin/${product.id}/product-page`);
+    res.redirect(`/product/${product.id}/product-page`);
   } catch (error) {
     next(error);
   }
 });
 
-router.get("/:id/product-page", async function (req, res, next) {
+router.get("/:id/edit-product", upload.single("image"),async function(req, res, next) {
   try {
     var product = await Product.findById(req.params.id);
-    res.render("productPage", {product});
+    res.render("editProduct",{product});
   } catch (error) {
     next(error);
   }
-});
+})
 
+router.post("/:id/edit-product",upload.single("image"),async function(req, res, next) {
+  try {
+    if(req.file) {
+      req.body.image = req.file.filename;
+    }
+    var product = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.redirect(`/product/${product.id}/product-page`);
+  } catch (error) {
+    next(error);
+  }
+})
+
+router.get("/:id/delete-product", async function(req, res, next) {
+  try {
+    var product = await Product.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+})
 module.exports = router;

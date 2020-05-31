@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 
-var User = require('../models/user');
+var User = require("../models/user");
 
 exports.getSignUpPage = (req, res, next) => {
   res.render("signup");
@@ -90,8 +90,11 @@ exports.verifyEmail = async function (req, res, next) {
       ) {
         var user = await User.findById(req.user);
         password = await user.encryptPassword(req.body.password);
-        var user = await User.findByIdAndUpdate(req.user, { isVerified: true, password });
-        
+        var user = await User.findByIdAndUpdate(req.user, {
+          isVerified: true,
+          password,
+        });
+
         res.redirect("/");
       } else {
         var user = await User.findByIdAndUpdate(req.user, { isVerified: true });
@@ -120,7 +123,7 @@ exports.getEmailVerificationCode = async function (req, res, next) {
           user: process.env.GMAIL_ID,
           pass: process.env.PASSWORD,
         },
-      }) 
+      })
     );
 
     var verificationCode = Math.random().toString(36).slice(-5);

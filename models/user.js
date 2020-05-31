@@ -41,6 +41,12 @@ var userSchema = new Schema({
         ref: "Product",
         default: ''
     }],
+
+    cartItems : [{
+        type: Schema.Types.ObjectId,
+        ref: "Cart",
+        default: ""
+    }]
 },{timestamps: true});
 
 userSchema.pre("save", async function(next) {

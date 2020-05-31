@@ -5,6 +5,14 @@ var productSchema = new Schema({
     name: {
         type: String,
         required: true,
+        trim: true
+    },
+
+    company: {
+        type: String,
+        default: "",
+        trim: true,
+        lowercase: true
     },
 
     image: String,
@@ -18,7 +26,8 @@ var productSchema = new Schema({
 
     description : {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
 
     ratedBy: [{
@@ -36,7 +45,9 @@ var productSchema = new Schema({
 
     category: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        lowercase: true
     },
 
     reviews: [{

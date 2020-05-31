@@ -3,7 +3,6 @@
     <div class="sidebar_wrapper">
       <%-include('sidebar')-%>
     </div>
-    
 
     <div class="sidebar-toggle">
       <button class="sidebar-btn">
@@ -12,7 +11,7 @@
     </div>
 
     <p class="brand-name">
-      Shopping Cart
+      <a href="/">Shopping Cart</a>
     </p>
 
     <ul class="nav-list">
@@ -26,44 +25,47 @@
       </li>
 
       <li class="nav-list-item dropdown">
-       
-          <div class="dropdown_parent">
-            <% if(user) {%>
-              <p class="small"> Hello, <%= user.name %></p>
-            <%} else {%>
-              <p class="small"> Hello, <a href="/users/login">Sign in</a></p>
-            <%}%>
-            <p class="nav-item-info">
-              Account & Lists <i class="fas fa-caret-down"></i>
-            </p>
-          </div>
-       
+        <div class="dropdown_parent">
+          <% if(user) {%>
+          <p class="small">Hello, <%= user.name %></p>
+          <%} else {%>
+          <p class="small">Hello, <a href="/users/login">Sign in</a></p>
+          <%}%>
+          <p class="nav-item-info">
+            Account & Lists <i class="fas fa-caret-down"></i>
+          </p>
+        </div>
 
         <ul class="dropdown-list">
-          
           <% if(user) {%>
-            <li class="dropdown_heading">Your Account</li>
-            <li>Your Account</li>
-            <li>Your Wishlist</li>
-            <li>Your Orders</li>
-            <li>
-              <a href="/users/logout"> Log Out</a>
-            </li>
+          <li class="dropdown_heading">Your Account</li>
+          <li>Your Account</li>
+          <li>Your Wishlist</li>
+          <li>Your Orders</li>
+          <li>
+            <a href="/users/logout"> Log Out</a>
+          </li>
 
           <%} else {%>
-            <button> Sign in</button>
-            <p class="small-para">
-              New Customer? <a href="/users/signup">Start Here</a>
-            </p>
+          <a href="/users/login">
+            <button>Sign in</button>
+          </a>
+          <p class="small-para">
+            New Customer? <a href="/users/signup">Start Here</a>
+          </p>
           <%}%>
-          
-          
         </ul>
       </li>
 
       <li class="nav-list-item cart-flex">
-        <p class="cart_icon"><i class="fas fa-shopping-cart"></i></p>
-        <p class="small">Cart</p>
+        <div class="cart-flex">
+          <p class="cart_icon">
+            <a href="/user/cart"><i class="fas fa-shopping-cart"></i></a>
+          </p>
+          <p class="small">
+            <a href="/user/cart">Cart</a>
+          </p>
+        </div>
       </li>
     </ul>
   </nav>

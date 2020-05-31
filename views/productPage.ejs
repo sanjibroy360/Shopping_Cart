@@ -4,19 +4,41 @@
 
 <section class="product-section">
     <div class="container product-flex">
-        <div class="image-wrapper">
-            <img src="/images/uploads/<%=product.image%>" class="product-image">
+        <div class="product-image-btns">
+            <div class="product-image-wrapper">
+                <img src="/images/uploads/<%=product.image%>" class="individual-product-image">
+            </div>
+            <div class="cart-btns">
+                <button class="add-cart-btn">
+                    <a href="/product/<%=product.id%>/cart/add"><i class="fas fa-shopping-cart cart-icon"></i>Add to Cart</a>
+                </button>
+                <button class="buy-now-btn">
+                    <a href="#"><i class="fas fa-play cart-icon"></i> Buy Now</a>
+                </button>
+            </div>
         </div>
         
         <div class="product-desc-wrapper">
             <h1 class="product-title"><%=product.name%></h1>
-            <p class="product-category">
-                <%= product.category %>
-            </p>
-            <p class="product-desc">
-                <%=product.description%>
-            </p>
+            
+            <div class="product-header-flex">
+                <div>
+                    <!-- <p class="product-rating"><%=product.rating%></p> -->
+                    <p class="product-category">Category: <a href="#"><%= product.category %></a></p>
+                </div>
 
+                <% if(user.isAdmin) {%>
+                    <div class="edit-btns">
+                        <a href="/admin/<%=product.id%>/edit-product" class="product-edit"> Edit </a>
+                        <a href="/admin/<%=product.id%>/delete-product" class="product-delete">Delete</a>
+                    </div>
+                <% } %>
+            </div>
+            <div class="product-cost-wrapper">
+                <p class="price-tag">Price: </p>
+                <p class="price">₹<%=product.price%></p>
+            </div>
+            <p class="product-desc"><%=product.description%></p>
         </div>
     </div>
 </section>

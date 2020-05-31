@@ -1,0 +1,30 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<div class="container">
+    <form action="/admin/<%=product.id%>/edit-product" method="POST" class="product-form" enctype="multipart/form-data">
+        <label class="product-form-label">Product Name</label>
+        <input type="text" name="name" class="product-input" value="<%=product.name%>"> 
+        
+        <label class="product-form-label">Description</label>
+        <textarea name="description" rows="10" class="product-input"><%= product.description%></textarea>
+    
+        <label class="product-form-label">Select Category</label>
+        <input type="text" name="category" class="product-input" value="<%=product.category%>"> 
+
+        <label class="product-form-label">Price</label>
+        <input type="Number" name="price" class="product-input" value="<%=product.price%>">
+    
+        <label class="product-form-label">Product's Image</label>
+        <input type="file" value="<%=product.image%>" name="image" class="product-image">
+    
+        <label class="product-form-label quantity">Quantity</label>
+        <input type="Number" name="quantity" class="product-input"value="<%= product.quantity%>">
+        
+        <input type="submit" class="product-submit-btn form-btn">
+    </form>
+    
+</div>
+
+<%-include('partials/footer')-%>

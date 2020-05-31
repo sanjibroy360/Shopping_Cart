@@ -1,5 +1,28 @@
-<%-include('partials/header')-%>
+<%-include('partials/header')-%> <%-include('partials/navbar')-%>
 
-<%-include('partials/navbar')-%>
+<section class="product-list-sec">
+  <div class="container">
+    <div class="product-card-wrapper product-card-flex">
+      <% allProducts.forEach(product => { %>
+      <div class="product-card">
+        <a href="/product/<%=product.id%>/product-page">
+          <img
+            src="/images/uploads/<%=product.image%>"
+            class="product-card-image"
+          />
+          <p class="product-card-title">
+            <%=product.name.length > 50 ?
+            product.name.slice(0,50)+"...":product.name.slice(0,50) %>
+          </p>
+        </a>
+        <p class="product-company"><%=product.company%></p>
+        <p class="product-card-price">
+          <spna class="ruppee-icon">₹</spna><%=product.price%>
+        </p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
 
 <%-include('partials/footer')-%>

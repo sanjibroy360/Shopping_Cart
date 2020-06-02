@@ -1,4 +1,5 @@
 var User = require("../models/user");
+var Product = require("../models/product");
 var passport = require("passport");
 
 exports.checkLogin = async function (req, res, next) {
@@ -42,6 +43,20 @@ exports.checkAdmin = async function (req, res, next) {
     next(error);
   }
 };
+
+exports.sidebarCategories = async function(req, res, next) {
+  try {
+    var categories = await Product.find({},"category");
+    if(categories) {
+      categories = categories.flat();
+      res.locals.categories = categories;
+    }
+    
+    next();
+  } catch (error) {
+      next(error); 
+  }
+}
 
 exports.getCurrentUserInfo = async function (req, res, next) {
   try {

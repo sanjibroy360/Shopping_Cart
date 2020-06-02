@@ -28,25 +28,21 @@
       </li>
 
     <%}%>
-    <li class="sidebar_items category_heading">
-      SHOP BY CATEGORY
-    </li>
-    <li class="sidebar_items">
-      <a href="/product/filter?category=book">Books</a>
-    </li>
-    <li class="sidebar_items">
-      <a href="/product/filter?category=mobile">Mobiles</a>
-      
-    </li>
 
-    <li class="sidebar_items">
-      <a href="/product/filter?category=computer">Computers</a>
-    </li>
+    <% if(categories.length) { %>
 
-    <li class="sidebar_items">
-      <a href="/product/filter?category=electronics">TV, Appliannces, Electronics</a>
-    </li>
+        <li class="sidebar_items category_heading">
+          SHOP BY CATEGORY
+        </li>
+        <% categories.forEach(category => { %>
+          <li class="sidebar_items">
+            <a href="/product/filter?category=<%=category.category%>"><%=category.category%></a>
+          </li>
+      <% }) %>
 
+    <% } %>
+    
+   
     <li class="sidebar_items">
       Your Account
     </li>

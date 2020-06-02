@@ -36,4 +36,6 @@ router.get("/get-verfication-code", userController.getEmailVerificationCode);
 
 router.get("/logout", userController.userLogOut);
 
+
+
 module.exports = router;

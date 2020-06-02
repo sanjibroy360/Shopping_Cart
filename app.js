@@ -57,6 +57,7 @@ app.use(passport.session())
 
 
 app.use(auth.getCurrentUserInfo);
+app.use(auth.sidebarCategories);
 app.use("/admin",auth.checkAdmin);
 
 app.use("/", indexRouter);
@@ -64,6 +65,7 @@ app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/product",productRouter);
 app.use("/user/cart",cartRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

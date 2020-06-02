@@ -24,7 +24,7 @@
             <div class="product-header-flex">
                 <div>
                     <!-- <p class="product-rating"><%=product.rating%></p> -->
-                    <p class="product-category">Category: <a href="#"><%= product.category %></a></p>
+                    <p class="product-category">Category: <a href="/product/filter?category=<%= product.category %>"><%= product.category %></a></p>
                 </div>
 
                 <% if(user.isAdmin) {%>
@@ -40,6 +40,49 @@
             </div>
             <p class="product-desc"><%=product.description%></p>
         </div>
+    </div>
+</section>
+
+<section class="comment-section">
+    <div class="container">
+        <div class="comment-flex">
+            <p class="comment-sec-heading">
+                Reviews
+            </p>
+            <div>
+                <a href="/product/<%=product.id%>/comment/add">
+                    <button class="add-comment-btn"> Add Review </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="comment-list-sec">
+    <div class="container">
+        <% product.comments.forEach(comment => {%>
+        <div class="comment-card">
+            <div class="review-flex">
+                <p><i class="fas fa-user-circle reviewer-icon"></i></p>
+                <p class="reviewer-name"><%=comment.user.name%></p>
+            </div>
+            <p class="review-title">
+                <%=comment.title%>
+            </p>
+            <p class="review-date">
+                Review on <%=comment.updatedAt.toString().slice(0,15)%>
+            </p>
+
+            <p class="review-desc">
+                <%=comment.description%>
+            </p>
+            <% if(user.id == comment.user.id) {%>
+            <a href="/product/<%=comment.product%>/comment/<%=comment.id%>/edit" class="edit-comment">Edit</a>
+            <a href="/product/<%=comment.product%>/comment/<%=comment.id%>/delete" class="delete-comment">Delete</a>
+            <%}%>
+        </div>
+        <%})%>
     </div>
 </section>
 

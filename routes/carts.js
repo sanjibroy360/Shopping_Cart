@@ -12,7 +12,6 @@ router.get("/", auth.checkLogin, async function (req, res, next) {
       "product",
       "-createdAt -updatedAt -description"
     );
-    console.log("All Products",allCartProducts);
     res.render("cartPage", { allCartProducts });
     
   } catch (error) {

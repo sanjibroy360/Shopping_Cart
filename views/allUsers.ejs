@@ -1,0 +1,35 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<section class="user-list">
+    <div class="container">
+        <table class="user-table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+            <% allUsers.forEach(user => {
+                if(!user.isAdmin) {%>
+                <tr>
+                    <td><%=user.name%></td>
+                    <td><%=user.email%></td>
+                    <td>
+                        <% if(!user.isBlocked) {%>
+                            <a href="/admin/user/<%=user.id%>/block">
+                                <button class="block">Block</button>
+                            </a>
+                        <%} else {%>
+                            <a href="/admin/user/<%=user.id%>/unblock">
+                                <button class="block">Unblock</button>
+                            </a>
+                        <%}}%>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</section>
+
+<%-include('partials/footer')-%>

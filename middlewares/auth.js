@@ -49,7 +49,6 @@ exports.getCurrentUserInfo = async function (req, res, next) {
       var id = req.session.userId || req.session.passport.user;
 
       var user = await User.findById(id);
-      console.log("USER: ", user);
       if (user) {
         req.user = user.id;
         res.locals.user = {
@@ -57,8 +56,6 @@ exports.getCurrentUserInfo = async function (req, res, next) {
           name: user.name,
           isAdmin: user.isAdmin,
         };
-        console.log("LOCAL: ", res.locals);
-        console.log("Local Session: ",req.session);
       } 
     } 
     next();

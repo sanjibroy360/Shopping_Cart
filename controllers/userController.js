@@ -35,12 +35,9 @@ exports.getLoginPage = function (req, res, next) {
 exports.userLogin = async function (req, res, next) {
   try {
     var user = await User.findOne({ email: req.body.email });
-
-    if (user) {
+    console.log("Login User: ", user);
+    if (user && !user.isBlocked) {
       if (await user.checkPassword(req.body.password)) {
-        console.log("Session: ", req.session);
-        console.log("Req. User: ", req.user);
-        console.log("Res. User: ", res.locals.user);
         req.session.userId = user.id;
         res.redirect("/");
       } else {
@@ -56,10 +53,7 @@ exports.userLogin = async function (req, res, next) {
       });
     }
   } catch (error) {
-    res.json({
-      success: false,
-      error,
-    });
+      next(error);
   }
 };
 
@@ -85,7 +79,7 @@ exports.verifyEmail = async function (req, res, next) {
   try {
     if (req.session.verificationCode == req.body.otp) {
       if (
-        req.hasOwnProperty("user") &&
+        req.body.confirmPassword &&
         req.body.password == req.body.confirmPassword
       ) {
         var user = await User.findById(req.user);

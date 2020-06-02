@@ -51,10 +51,13 @@ var userSchema = new Schema({
 
 userSchema.pre("save", async function(next) {
     try {
-        this.password = await hash(this.password, 10);
         if(this.email == process.env.ADMIN) {
             this.isAdmin = true;
         }
+        console.log(this.password);
+        this.password = await hash(this.password, 5);
+        console.log(this.password);
+        
         next()
     } catch (error) {
         res.json({
@@ -75,7 +78,14 @@ userSchema.methods.encryptPassword = async function(password) {
 }
 
 userSchema.methods.checkPassword = async function(password) {
-    return await compare(password, this.password);
+    try {
+        console.log("This Password: ", this.password);
+        console.log("Password: ",password);
+        return await compare(password, this.password);
+    } catch (error) {
+        console.log(error);
+       return(false);
+    }
 }
 
 module.exports = mongoose.model("User",userSchema);

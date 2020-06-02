@@ -197,13 +197,22 @@ button {
   line-height: 2;
   width: 20rem;
   min-height: 100vh;
-  overflow: auto;
+  overflow-y: scroll;
   border: 0.1px solid rgb(219, 219, 219);
   z-index: 55;
   margin-left: -40rem;
   transition: 0.5s ease;
   background-color: #fff;
   position: fixed;
+}
+
+.sidebar-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.sidebar-list {
+  -ms-overflow-style: none;
 }
 
 .sidebar_items {
@@ -559,6 +568,7 @@ button {
   flex-wrap: wrap;
 }
 
+
 .cart-image-wrapper {
   flex-basis: 20%;
 }
@@ -592,13 +602,98 @@ button {
 .inc-cart-product, .dec-cart-product {
   font-weight: bold;
   font-size: 1.5rem;
-  width: 2rem;
-  border-radius: 25%;
+  width: 2.2rem;
+  border-radius: 45%;
   background-color: #eee;
- 
+  border: 0.1rem solid rgb(190, 188, 188);
   outline: 0;
+  vertical-align: middle;
+  padding: 0.01rem;
+ 
 }
 
 .cart-product-infos{
   flex-basis: 74%;
 }
+
+.cart-card-right {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Comments */
+
+.comment-flex {
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  left: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+  padding: 1rem;
+  
+  /* border: 0.05rem solid rgb(168, 168, 168); */
+}
+
+
+.comment-form-name, .comment-desc {
+  display: block;
+}
+
+.comment-form-btn {
+  display: block;
+}
+
+.comment-card {
+  width: 43%;
+  margin: 2rem auto;
+}
+
+.review-flex {
+  display: flex;
+  align-items: center;
+}
+
+.reviewer-icon {
+  font-size: 2.5rem;
+  color: rgb(171,183,183);
+}
+
+.reviewer-name {
+  font-size: 1.15rem;
+  margin-left: 0.65rem;
+}
+
+.review-date {
+  color: rgb(85,91,95);
+  margin: 0.15rem;
+  font-size: 0.85rem;
+}
+
+.edit-comment, .delete-comment {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.edit-comment {
+  margin-right: 1rem;
+}
+
+
+/* User List */
+
+.user-table {
+  
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.user-table th, .user-table td {
+  padding: 0.5rem;
+  border: 0.01rem solid  rgb(85,91,95);
+}
+
+

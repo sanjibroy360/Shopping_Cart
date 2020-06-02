@@ -1,0 +1,22 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<section class="add-comment-sec">
+    <div class="container">
+        <form action="/product/<%=comment.product%>/comment/<%=comment.id%>/edit" method="POST">
+            
+            <label class="product-form-label">Add Review</label>
+            <input type="text" name="title" class="product-input" placeholder="What's most important to know?" value="<%=comment.title%>"> 
+            
+            <label class="product-form-label">Description</label>
+            <textarea name="description" rows="10" class="product-input" placeholder="What did you like or dislike? What did you use this product for?"> <%=comment.description%> </textarea>
+    
+            <p><% console.log(comment.title) %>"</p>
+            <input type="submit" class="product-submit-btn form-btn">
+        </form>
+        
+    </div>
+</section>
+
+<%-include('partials/footer')-%>

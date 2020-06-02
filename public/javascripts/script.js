@@ -1,6 +1,13 @@
 var sidebarList = document.querySelector('.sidebar-list');
 var crossBtn = document.querySelector('.cross-btn');
 
+// console.log(btns);
+
+
+
+
+
+
 
 var toggleBtn = document.querySelector('.sidebar-btn');
 

@@ -60,7 +60,12 @@ var productSchema = new Schema({
         min: 0,
         default: 0,
         required: true
-    }
+    },
+
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
 
 }, {timestamps: true});
 

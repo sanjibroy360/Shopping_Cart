@@ -7,7 +7,7 @@
         <% allCartProducts.forEach(item => { 
             if(item.quantity > 0) { %>
                 
-                <div class="cart-card-wrapper">
+                <form action="/product/<%=item.product.id%>/cart/update" method="POST" class="cart-card-wrapper">
                 
                     <div class="cart-card-left">
                         <div class="cart-image-wrapper">
@@ -23,7 +23,7 @@
                                 </p>
                             <p class="cart-product-price">₹ <%=item.product.price%></p>
                             <input type="submit" class="cart-product-update" value="Update">
-                            <input type="reset" class="cart-product-remove" value="Remove">
+                            <a href="/product/<%=item.product.id%>/cart/remove"><span class="cart-product-remove">Remove</span></a>
                             
                         </div>
                     </div>
@@ -31,21 +31,23 @@
                     <div class="cart-card-right">
                         <div class="quantity-update-btns">
                             <a href="/product/<%=item.product.id%>/cart/add">
-                                <button class="inc-cart-product">+</button>
+                                <div class="inc-cart-product">+</div>
                             </a>
                             
-                            <input class="cart-product-quantity" name="quantity" value="<%=item.quantity%>" />
+                            <input class="cart-product-quantity" name="quantity" value="<%=item.quantity%>"/>
                             
                             <a href="/product/<%=item.product.id%>/cart/decrease-quantity">
-                                <button class="dec-cart-product">-</button>
+                                <div class="dec-cart-product">-</div>
                             </a>
+
+                            <input type="hidden" class="calculated-price" value="<%=(item.product.price)*(item.quantity)%>">
                         </div>
-    
-                        
                     </div>
-                </div>
+                </form>
         <% }
     }) %>
+
+    
     </div>
 </section>
 

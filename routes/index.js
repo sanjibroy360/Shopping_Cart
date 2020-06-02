@@ -8,11 +8,12 @@ var Product = require("../models/product");
 router.get("/", async function (req, res, next) {
   
   try {
+    req.session.filtered = null;
     if(!req.hasOwnProperty("user")) {
       res.locals.user = false;
     }
     var allProducts = await Product.find({});
-    res.render("index", {allProducts})
+    res.render("index", {allProducts});
   } catch (error) {
       next(error); 
   }

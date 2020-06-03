@@ -4,8 +4,27 @@
 
 <section class="add-comment-sec">
     <div class="container">
+
+        
+
         <form action="/product/<%=productId%>/comment/add" method="POST">
+
+            <input type="checkbox" class="starCheckBox" name="ratings" id="star1" value="1">
+            <label for="star1"class="star" data-rate-try="1"><i class="fas fa-star"></i></label>
+
+            <input type="checkbox" class="starCheckBox" name="ratings" id="star2" value="2">
+            <label for="star2"class="star" data-rate-try="1"><i class="fas fa-star"></i></label>
+
+            <input type="checkbox" class="starCheckBox" name="ratings" id="star3" value="3">
+            <label for="star3"class="star" data-rate-try="1"><i class="fas fa-star"></i></label>
+
+            <input type="checkbox" class="starCheckBox" name="ratings" id="star4" value="4">
+            <label for="star4"class="star" data-rate-try="1"><i class="fas fa-star"></i></label>
+
+            <input type="checkbox" class="starCheckBox" name="ratings" id="star5" value="5">
+            <label for="star5"class="star" data-rate-try="1"><i class="fas fa-star"></i></label>
             
+
             <label class="product-form-label">Add Review</label>
             <input type="text" name="title" class="product-input" placeholder="What's most important to know?"> 
             

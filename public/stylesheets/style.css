@@ -325,7 +325,7 @@ button {
 
 /* Add Product Form */
 
-.product-input, .product-form-label, .product-image, .product-category {
+.product-input, .product-form-label, .product-image, .product-category, .product-rating {
   display: block;
   width: 50%;
   margin: 0 auto;
@@ -338,7 +338,7 @@ button {
   outline: 0;
 }
 
-.product-category {
+.product-category, .product-rating {
   padding: 0.5rem;
 }
 
@@ -407,7 +407,7 @@ button {
   line-height: 1.2;
 }
 
-.product-category {
+.product-category, .product-rating {
   text-align: left;
   width: 100%;
   text-transform: capitalize;
@@ -696,4 +696,21 @@ button {
   border: 0.01rem solid  rgb(85,91,95);
 }
 
+/* Rating */
 
+.star {
+  width: 100%;
+  overflow: hidden;
+}
+
+.star {
+  color: #ccc;
+}
+
+.starCheckBox {
+  /* display: none; */
+}
+
+.rated {
+  color: gold;
+}

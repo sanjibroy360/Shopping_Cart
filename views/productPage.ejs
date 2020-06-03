@@ -23,8 +23,10 @@
             
             <div class="product-header-flex">
                 <div>
-                    <!-- <p class="product-rating"><%=product.rating%></p> -->
+                    <p class="product-rating"><%=avgRating%> / 5</p>
                     <p class="product-category">Category: <a href="/product/filter?category=<%= product.category %>"><%= product.category %></a></p>
+
+                    
                 </div>
 
                 <% if(user.isAdmin) {%>
@@ -45,16 +47,21 @@
 
 <section class="comment-section">
     <div class="container">
+        <% if(!user.isAdmin) {%>
         <div class="comment-flex">
             <p class="comment-sec-heading">
                 Reviews
             </p>
-            <div>
-                <a href="/product/<%=product.id%>/comment/add">
-                    <button class="add-comment-btn"> Add Review </button>
-                </a>
-            </div>
+            <% console.log(isAlreadyReviewed)
+            if(!isAlreadyReviewed) {%>
+                <div>
+                    <a href="/product/<%=product.id%>/comment/add">
+                        <button class="add-comment-btn"> Add Review </button>
+                    </a>
+                </div>
+            <%}%>
         </div>
+        <%}%>
 
     </div>
 </section>

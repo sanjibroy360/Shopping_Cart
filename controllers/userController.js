@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 
+
 var User = require("../models/user");
 
 exports.getSignUpPage = (req, res, next) => {

@@ -30,18 +30,6 @@ var productSchema = new Schema({
         trim: true
     },
 
-    ratedBy: [{
-        userId: {
-            type: Schema.Types.ObjectId,
-            ref:"User"
-        },
-
-        stars: {
-            type: Number,
-            min: 0,
-            default: 0
-        }
-    }],
 
     category: {
         type: String,
@@ -49,11 +37,6 @@ var productSchema = new Schema({
         trim: true,
         lowercase: true
     },
-
-    reviews: [{
-        type: Schema.Types.ObjectId,
-        ref: "Review"
-    }],
 
     quantity: {
         type: Number,
@@ -65,7 +48,8 @@ var productSchema = new Schema({
     comments: [{
         type: Schema.Types.ObjectId,
         ref: "Comment"
-    }]
+    }],
+
 
 }, {timestamps: true});
 

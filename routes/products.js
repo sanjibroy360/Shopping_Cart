@@ -9,8 +9,9 @@ var auth = require("../middlewares/auth");
 
 var cartRouter = require("../routes/carts");
 
-router.get("/:id/product-page", async function (req, res, next) {
+router.get("/:id/product-page", auth.countStars ,async function (req, res, next) {
   try {
+    var ratingObj = req.ratingObj;
     var product = await Product.findById(req.params.id)
                                .populate({
                                  path: "comments",
@@ -19,7 +20,13 @@ router.get("/:id/product-page", async function (req, res, next) {
                                    model: "User"
                                  }
                                })
-    res.render("productPage", { product });
+    var isAlreadyReviewed = await Comment.findOne({user : req.user, product : req.params.id});
+
+    index = ratingObj.findIndex(obj => obj.productId.toString() == req.params.id.toString());
+
+    var avgRating = (ratingObj[index].ratings) / (ratingObj[index].noOfPeople);
+
+    res.render("productPage", { product, isAlreadyReviewed, avgRating: avgRating, noOfPeople: ratingObj[index].noOfPeople});
   } catch (error) {
     next(error);
   }
@@ -143,12 +150,18 @@ router.post("/:productId/comment/add", auth.checkLogin, async function(req, res,
   try {
     req.body.user = req.user;
     req.body.product = req.params.productId;
+    req.body.ratings = +req.body.ratings;    
+    var ratings = +req.body.ratings;
+
     var comment = await Comment.create(req.body);
-    var updatedProduct = await Product.findByIdAndUpdate(req.params.productId, {$push: {comments : comment.id}},{new: true});
+    var updatedProduct = await Product.findByIdAndUpdate(req.params.productId, {$set:{$inc: {totalStars: +ratings}}, $push: { comments: comment.id }},{new: true});
+
+    console.log("Total Stars: ",updatedProduct.totalStars);
 
 
     console.log("New Comment: ", comment);
     console.log("Updated Product: ", updatedProduct);
+    console.log("Ratings: ", req.body.ratings);
     res.redirect(`/product/${req.params.productId}/product-page`);
   } catch (error) {
       next(error);
@@ -170,6 +183,7 @@ router.get("/:productId/comment/:commentId/edit", auth.checkLogin, async functio
 router.post("/:productId/comment/:commentId/edit", auth.checkLogin, async function(req, res, next) {
   try {
     var commentId = req.params.commentId;
+
     var comment = await Comment.findByIdAndUpdate(commentId, req.body, {new: true});
     
     res.redirect(`/product/${req.params.productId}/product-page`);
@@ -185,6 +199,9 @@ router.get("/:productId/comment/:commentId/delete", auth.checkLogin, async funct
     var productId = req.params.productId;
     var comment = await Comment.findByIdAndDelete(commentId);
     console.log("Product Id: ",productId);
+    var ratings = comment.ratings;
+
+    var updatedProduct = await Product.findByIdAndUpdate(productId, {$set:{$inc: {totalStars: -ratings}}, $pull: { comments: comment.id }},{new: true});
 
     res.redirect(`/product/${productId}/product-page`);
 

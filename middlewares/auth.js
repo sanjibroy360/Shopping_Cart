@@ -1,6 +1,7 @@
 var User = require("../models/user");
 var Product = require("../models/product");
 var passport = require("passport");
+var Comment = require("../models/comment");
 
 exports.checkLogin = async function (req, res, next) {
   try {
@@ -78,3 +79,43 @@ exports.getCurrentUserInfo = async function (req, res, next) {
     next(error);
   }
 };
+
+exports.countStars = async function(req, res, next) {
+  try {
+    var allProducts = await Comment.find({},"product ratings");
+    
+    var ratingObj = allProducts.reduce((acc, curerntProduct) => {
+      var obj = {};
+      
+      var index = acc.findIndex(obj => obj.productId.toString() == curerntProduct.product.toString());
+      console.log("Current Product: ",curerntProduct.product);
+      if(acc[0]) {
+        console.log(acc[0].productId);
+        console.log(curerntProduct.product);
+        console.log("Condition: ", acc[0].productId.toString() == curerntProduct.product.toString())
+      }
+      console.log(index);
+      if(index != -1) {
+          
+          acc[index].ratings += curerntProduct.ratings;
+          acc[index].noOfPeople += 1;
+        
+      } else {
+        obj = {
+          productId : curerntProduct.product,
+          ratings : curerntProduct.ratings,
+          noOfPeople : 1
+        }
+        acc.push(obj);
+      }
+      return acc;
+    },[]);
+
+    req.ratingObj = ratingObj;
+    console.log("Rating Object: ",ratingObj);
+    console.log("------------------------------------------------------")
+    next();
+  } catch (error) {
+      next(error);
+  }
+}

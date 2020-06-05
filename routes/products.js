@@ -21,12 +21,19 @@ router.get("/:id/product-page", auth.countStars ,async function (req, res, next)
                                  }
                                })
     var isAlreadyReviewed = await Comment.findOne({user : req.user, product : req.params.id});
-
+                              
     index = ratingObj.findIndex(obj => obj.productId.toString() == req.params.id.toString());
+    var avgRating = 0;
+    
+    if(index != -1) {
+      avgRating = (ratingObj[index].ratings) / (ratingObj[index].noOfPeople);
+      
+      res.render("productPage", { product, isAlreadyReviewed, avgRating: avgRating, noOfPeople: ratingObj[index].noOfPeople});
+    } else {
 
-    var avgRating = (ratingObj[index].ratings) / (ratingObj[index].noOfPeople);
-
-    res.render("productPage", { product, isAlreadyReviewed, avgRating: avgRating, noOfPeople: ratingObj[index].noOfPeople});
+      res.render("productPage", { product, isAlreadyReviewed, avgRating: 0, noOfPeople: 0});
+    }
+      
   } catch (error) {
     next(error);
   }
@@ -34,21 +41,14 @@ router.get("/:id/product-page", auth.countStars ,async function (req, res, next)
 
 router.get("/filter", async function(req, res, next){
   try {
-    console.log("prev filter", req.filtered)
+    
    if(!req.session.filtered && req.filtered !== req.query.category) {
     req.session.filtered = req.query.category;
     var filter = req.query;
     var filteredProduct = await Product.find(filter);
 
-    console.log("Condition: ",req.filtered !== req.query.category)
-    console.log("Category: ", req.query.category);
-    console.log("Filtered: ", req.filtered);
-
     res.render("index", {allProducts: filteredProduct})
    } else {
-      console.log("else Condition: ",req.filtered !== req.query.category)
-      console.log("else Category: ", req.query.category);
-      console.log("else Filtered: ", req.filtered);
       res.redirect("/");
    }
   } catch (error) {
@@ -156,12 +156,7 @@ router.post("/:productId/comment/add", auth.checkLogin, async function(req, res,
     var comment = await Comment.create(req.body);
     var updatedProduct = await Product.findByIdAndUpdate(req.params.productId, {$set:{$inc: {totalStars: +ratings}}, $push: { comments: comment.id }},{new: true});
 
-    console.log("Total Stars: ",updatedProduct.totalStars);
-
-
-    console.log("New Comment: ", comment);
-    console.log("Updated Product: ", updatedProduct);
-    console.log("Ratings: ", req.body.ratings);
+    
     res.redirect(`/product/${req.params.productId}/product-page`);
   } catch (error) {
       next(error);

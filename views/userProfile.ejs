@@ -1,0 +1,29 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<section class="profile-sec">
+    <div class="container">
+        <div class="profile-wrapper">
+            <div class="img-wrapper">
+                <% if(user.avatar.includes("google")) {%>
+                    <img src="<%=user.avatar%>" alt="Profile Picture" class="profile_picture">
+                <%} else {%>
+                    <img src="/images/uploads/profile_pictures/<%=user.avatar%>" alt="Profile Picture" class="profile_picture">
+                <%}%>
+            </div>
+            <div class="user-info-wrapper">
+                <p class="profile-user-info"><span class="profile-label">Name : </span><%= user.name %></p>
+                <p class="profile-user-info"><span class="profile-label">Email: </span><%= user.email%></p>
+                <div class="edit-profile">
+                    <a href="/users/<%=user.id%>/profile/edit">
+                        <button class="profile-btn"><i class="far fa-edit"></i> Edit</button>   
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<%-include('partials/footer')-%>

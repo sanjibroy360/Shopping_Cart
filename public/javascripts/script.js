@@ -1,7 +1,15 @@
 var sidebarList = document.querySelector(".sidebar-list");
 var crossBtn = document.querySelector(".cross-btn");
 var toggleBtn = document.querySelector(".sidebar-btn");
-var prevStars = document.querySelector('.prevStars').value || null;
+var prevStars = null;
+
+if(document.querySelector('.prevStars')) {
+    prevStars = document.querySelector('.prevStars').value;
+}
+
+if(document.querySelector(".productPageStars")) {
+  var productPageStars = document.querySelector(".productPageStars").value;
+}
 
 
 toggleBtn.addEventListener("click", function (e) {
@@ -29,6 +37,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
         prevRating(prevStars); 
     }
 })
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  if(productPageStars) {
+    var stars = document.querySelectorAll(".star-onpage");
+    fillStars(productPageStars, stars);
+  }
+})
+
+function fillStars(rating, stars) {
+  
+  for(let i = 1; i <= 5; i++) {
+    if(i <= rating) {
+      stars[i-1].classList.add("rated");
+    } else {
+      stars[i-1].classList.remove("rated");
+    }
+  }
+}
+
 
 function prevRating(prevStars) {
   event.stopPropagation();

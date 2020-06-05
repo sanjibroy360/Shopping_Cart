@@ -27,7 +27,7 @@
       <li class="nav-list-item dropdown">
         <div class="dropdown_parent">
           <% if(user) {%>
-          <p class="small">Hello, <%= user.name %></p>
+          <p class="small">Hello, <%= user.name.split(" ")[0] %></p>
           <%} else {%>
           <p class="small">Hello, <a href="/users/login">Sign in</a></p>
           <%}%>
@@ -39,7 +39,7 @@
         <ul class="dropdown-list">
           <% if(user) {%>
           <li class="dropdown_heading">Your Account</li>
-          <li>Your Account</li>
+          <li><a href="/users/<%=user.id%>/profile"> Your Account </a></li>
           <li>Your Wishlist</li>
           <li>Your Orders</li>
           <li>
@@ -56,7 +56,7 @@
           <%}%>
         </ul>
       </li>
-
+      <% if(user && !user.isAdmin) {%>
       <li class="nav-list-item cart-flex">
         <div class="cart-flex">
           <p class="cart_icon">
@@ -67,6 +67,7 @@
           </p>
         </div>
       </li>
+      <% } %>
     </ul>
   </nav>
 </header>

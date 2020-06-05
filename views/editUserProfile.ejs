@@ -1,0 +1,39 @@
+<%-include('partials/header')-%>
+
+<%-include('partials/navbar')-%>
+
+<section class="profile-sec">
+    <div class="container">
+        <div class="profile-wrapper">
+            <div class="img-wrapper">
+                <% if(user.avatar.includes("google")) {%>
+                    <img src="<%=user.avatar%>" alt="Profile Picture" class="profile_picture">
+                <%} else {%>
+                    <img src="/images/uploads/profile_pictures/<%=user.avatar%>" alt="Profile Picture" class="profile_picture">
+                <%}%>
+            </div>
+            <div class="user-info-wrapper">
+                <form action="/users/<%=user.id%>/profile/edit" method="POST" enctype="multipart/form-data">
+                    <label class="edit-user-label">Name</label>
+                    <input type="text" name="name" value="<%=user.name%>" class="profile-info-edit">
+
+                    <label class="edit-user-label">Email</label>
+                    <input type="text" name="email" value="<%=user.email%>" class="profile-info-edit">
+
+                    <label class="edit-user-label">Change Profile Picture</label>
+                    <input type="file" name="avatar"class="edit-avatar">
+
+                    <div class="edit-profile">
+                        <a href="/users/<%=user.id%>/profile/edit">
+                            <button class="profile-btn"><i class="far fa-save"></i>  Save</button>   
+                        </a>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<%-include('partials/footer')-%>

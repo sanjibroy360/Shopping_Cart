@@ -1,12 +1,19 @@
 
   <ul class="sidebar-list">
     <li class="sidebar_heading">
-      <p class="user_icon">
-        <i class="fas fa-user-tie"></i>
-      </p>
+      <div class="sidebar-avatar-wrapper">
+        <% if(user && user.avatar.includes("google")) {%>
+          <img src="<%=user.avatar%>" alt="Profile Picture" class="small-avatar">
+      <%} else {%>
+          <%if(user) {%>
+            <img src="/images/uploads/profile_pictures/<%=user.avatar %>" alt="Profile Picture" class="small-avatar">
+          <%} else {%>
+            <img src="/images/uploads/profile_pictures/default_user_icon.jpg" alt="Profile Picture" class="small-avatar">
+      <%}}%>
+      </div>
       <p class="sidebar_username">
         <% if(user) {%>
-          Hello, <%= user.name %>
+          Hello, <%= user.name.split(" ")[0] %>
         <%} else {%>
           <a href="/users/login">Sign in</a>
         <%}%>
@@ -34,22 +41,25 @@
         <li class="sidebar_items category_heading">
           SHOP BY CATEGORY
         </li>
+        
+        <% %>
         <% categories.forEach(category => { %>
           <li class="sidebar_items">
-            <a href="/product/filter?category=<%=category.category%>"><%=category.category%></a>
+            <a href="/product/filter?category=<%=category%>"><%=category%></a>
           </li>
       <% }) %>
 
     <% } %>
     
-   
+    <%if(user) {%>
     <li class="sidebar_items">
-      Your Account
+      <a href="/users/<%=user.id%>/profile"> Your Account </a>
     </li>
-
+    
     <li class="sidebar_items">
       <a href="/users/logout"> Sign Out</a>
     </li>
+    <%}%>
   </ul>
 
   <button class="cross-btn">

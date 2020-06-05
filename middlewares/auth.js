@@ -5,7 +5,7 @@ var Comment = require("../models/comment");
 
 exports.checkLogin = async function (req, res, next) {
   try {
-    if (req.session.userId || req.session.passport.user) {
+    if (req.session.userId || req.session.passport) {
       var user = await User.findById(req.user);
       if(user) {
         if (user.isVerified) {
@@ -26,7 +26,7 @@ exports.checkLogin = async function (req, res, next) {
 
 exports.checkAdmin = async function (req, res, next) {
   try {
-    if (req.session.userId || req.session.passport.user) {
+    if (req.session.userId || req.session.passport) {
       var user = await User.findById(req.user);
       if (user.isVerified) {
         if(user.isAdmin) {
@@ -47,9 +47,9 @@ exports.checkAdmin = async function (req, res, next) {
 
 exports.sidebarCategories = async function(req, res, next) {
   try {
-    var categories = await Product.find({},"category");
-    if(categories) {
-      categories = categories.flat();
+    var categories = await Product.distinct("category");
+    
+    if(categories.length) {
       res.locals.categories = categories;
     }
     
@@ -63,7 +63,7 @@ exports.getCurrentUserInfo = async function (req, res, next) {
   try {
     if (req.session.userId  || req.session.passport) {
       var id = req.session.userId || req.session.passport.user;
-
+      
       var user = await User.findById(id);
       if (user) {
         req.user = user.id;
@@ -71,9 +71,12 @@ exports.getCurrentUserInfo = async function (req, res, next) {
           id: user.id,
           name: user.name,
           isAdmin: user.isAdmin,
+          avatar: user.avatar
         };
       } 
-    } 
+    } else {
+        res.locals.user = null;
+    }
     next();
   } catch (error) {
     next(error);
@@ -88,13 +91,7 @@ exports.countStars = async function(req, res, next) {
       var obj = {};
       
       var index = acc.findIndex(obj => obj.productId.toString() == curerntProduct.product.toString());
-      console.log("Current Product: ",curerntProduct.product);
-      if(acc[0]) {
-        console.log(acc[0].productId);
-        console.log(curerntProduct.product);
-        console.log("Condition: ", acc[0].productId.toString() == curerntProduct.product.toString())
-      }
-      console.log(index);
+      
       if(index != -1) {
           
           acc[index].ratings += curerntProduct.ratings;
@@ -112,8 +109,6 @@ exports.countStars = async function(req, res, next) {
     },[]);
 
     req.ratingObj = ratingObj;
-    console.log("Rating Object: ",ratingObj);
-    console.log("------------------------------------------------------")
     next();
   } catch (error) {
       next(error);

@@ -6,15 +6,17 @@
     <div class="container product-flex">
         <div class="product-image-btns">
             <div class="product-image-wrapper">
-                <img src="/images/uploads/<%=product.image%>" class="individual-product-image">
+                <img src="/images/uploads/products/<%=product.image%>" class="individual-product-image">
             </div>
             <div class="cart-btns">
-                <button class="add-cart-btn">
-                    <a href="/product/<%=product.id%>/cart/add"><i class="fas fa-shopping-cart cart-icon"></i>Add to Cart</a>
-                </button>
-                <button class="buy-now-btn">
-                    <a href="#"><i class="fas fa-play cart-icon"></i> Buy Now</a>
-                </button>
+                <%if(user && !user.isAdmin) {%>
+                    <button class="add-cart-btn">
+                        <a href="/product/<%=product.id%>/cart/add"><i class="fas fa-shopping-cart cart-icon"></i>Add to Cart</a>
+                    </button>
+                    <button class="buy-now-btn">
+                        <a href="#"><i class="fas fa-play cart-icon"></i> Buy Now</a>
+                    </button>
+                <%}%>
             </div>
         </div>
         
@@ -23,13 +25,15 @@
             
             <div class="product-header-flex">
                 <div>
-                    <p class="product-rating"><%=avgRating%> / 5</p>
+                    <p class="product-rating">Ratings: <%=avgRating.toFixed(1)%> / 5</p>
+
+                    
                     <p class="product-category">Category: <a href="/product/filter?category=<%= product.category %>"><%= product.category %></a></p>
 
                     
                 </div>
 
-                <% if(user.isAdmin) {%>
+                <% if(user && user.isAdmin) {%>
                     <div class="edit-btns">
                         <a href="/admin/<%=product.id%>/edit-product" class="product-edit"> Edit </a>
                         <a href="/admin/<%=product.id%>/delete-product" class="product-delete">Delete</a>
@@ -47,11 +51,12 @@
 
 <section class="comment-section">
     <div class="container">
-        <% if(!user.isAdmin) {%>
+        
         <div class="comment-flex">
             <p class="comment-sec-heading">
                 Reviews
             </p>
+            <% if(user && !user.isAdmin) {%>
             <% console.log(isAlreadyReviewed)
             if(!isAlreadyReviewed) {%>
                 <div>
@@ -68,14 +73,26 @@
 
 <section class="comment-list-sec">
     <div class="container">
+       
         <% product.comments.forEach(comment => {%>
         <div class="comment-card">
             <div class="review-flex">
-                <p><i class="fas fa-user-circle reviewer-icon"></i></p>
+                
+                <div class="user-avatar-wrapper">
+                    <img src="/images/uploads/profile_pictures/<%=comment.user.avatar%>" alt="Usre Avatar" class="small-avatar">
+                </div>
                 <p class="reviewer-name"><%=comment.user.name%></p>
             </div>
             <p class="review-title">
-                <%=comment.title%>
+                <input type="hidden" class="productPageStars" value="<%=comment.ratings%>">
+                <span class="star star-onpage"><i class="fas fa-star"></i></span>
+                <span class="star star-onpage"><i class="fas fa-star"></i></span>
+                <span class="star star-onpage"><i class="fas fa-star"></i></span>
+                <span class="star star-onpage"><i class="fas fa-star"></i></span>
+                <span class="star star-onpage"><i class="fas fa-star"></i></span>
+                
+
+                <span><%=comment.title%></span>
             </p>
             <p class="review-date">
                 Review on <%=comment.updatedAt.toString().slice(0,15)%>
@@ -84,7 +101,7 @@
             <p class="review-desc">
                 <%=comment.description%>
             </p>
-            <% if(user.id == comment.user.id) {%>
+            <% if(user && user.id == comment.user.id) {%>
             <a href="/product/<%=comment.product%>/comment/<%=comment.id%>/edit" class="edit-comment">Edit</a>
             <a href="/product/<%=comment.product%>/comment/<%=comment.id%>/delete" class="delete-comment">Delete</a>
             <%}%>

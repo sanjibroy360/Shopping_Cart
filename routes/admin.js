@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var fs = require('fs');
 
 var User = require("../models/user");
 var Product = require("../models/product");
@@ -11,13 +12,13 @@ var path = require("path");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../public/images/uploads"));
+    cb(null, path.join(__dirname, "../public/images/uploads/products"));
   },
 
   filename: function (req, file, cb) {
     cb(
       null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      `product${Math.floor(Math.random() * (1111 - 9999) + 1111)}` + "-" + Date.now() + path.extname(file.originalname)
     );
   },
 });
@@ -53,6 +54,7 @@ router.post("/add-product", upload.single("image"), async function (
 
 router.get("/:id/edit-product", upload.single("image"),async function(req, res, next) {
   try {
+    
     var product = await Product.findById(req.params.id);
     res.render("editProduct",{product});
   } catch (error) {
@@ -65,7 +67,17 @@ router.post("/:id/edit-product",upload.single("image"),async function(req, res, 
     if(req.file) {
       req.body.image = req.file.filename;
     }
-    var product = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    var product = await Product.findByIdAndUpdate(req.params.id, req.body);
+   
+    
+    if(req.file && req.file.filename != product.image) {
+      var imgPath = path.join(__dirname, "../public/images/uploads/products/");
+      var deletedImage = fs.unlink(imgPath+product.image, (err) => {
+        next(err);
+      });
+    }
+    
+
     res.redirect(`/product/${product.id}/product-page`);
   } catch (error) {
     next(error);
@@ -77,6 +89,11 @@ router.get("/:id/delete-product", async function(req, res, next) {
     
     var product = await Product.findByIdAndDelete(req.params.id);
     var deletedComment = await Comment.deleteMany({product: req.params.id});
+
+    var imgPath = path.join(__dirname, "../public/images/uploads/products/");
+    var deletedImage = fs.unlink(imgPath+product.image, (err) => {
+      next(err);
+    });
     res.redirect("/");
   } catch (error) {
     next(error);

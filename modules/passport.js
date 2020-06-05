@@ -11,9 +11,10 @@ passport.use(
     },
     async function (request, accessToken, refreshToken, profile, done) {
       try {
+        console.log(profile);
         var update = {
           name: profile.displayName,
-          email: profile._json.email,
+          email: profile._json.email, 
           isAdmin: profile._json.email == process.env.ADMIN,
         };
         var user = await User.findOneAndUpdate(
